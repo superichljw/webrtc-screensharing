@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>Document</title>
+  <style>
+    * {
+      font-family: 'NanumSquare';
+    }
+
+    #classRoom {
+      width: 1000px;
+      height: 600px;
+    }
+
+    #classRoom #prepare {
+      position: relative;
+      left: 10%;
+      top: 10%;
+      z-index: -1;
+    }
+
+    #localVideo {
+      position: absolute;
+      left: 3%;
+      top: 3%;
+      width: 60%;
+      max-height: 500px;
+      /* transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg); */
+      /* Safari and Chrome */
+      /* -moz-transform: rotateY(180deg); */
+      /* Firefox */
+    }
+
+
+    #screenVideo {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 30%;
+      max-height: 500px;
+      /* transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg); */
+      /* Safari and Chrome */
+      /* -moz-transform: rotateY(180deg); */
+      /* Firefox */
+    }
+
+    #btn-start {
+      position: absolute;
+      bottom: 20%;
+      left: 55%;
+      widows: 80px;
+      height: 30px;
+    }
+
+    #video-start {
+      position: absolute;
+      bottom: 20%;
+      left: 47%;
+      widows: 80px;
+      height: 30px;
+    }
+
+    /*메세지 보여주는 창  */
+    #chat_box {
+      position: absolute;
+      right: 3%;
+      top: 3%;
+      width: 25%;
+      height: 60%;
+      border: 1px solid black;
+      overflow: auto;
+      background-color: #000;
+    }
+
+    /*메세지 입력칸 */
+    #msg {
+      position: absolute;
+      right: 6%;
+      top: 65%;
+      width: 25.2%;
+      height: 20px;
+    }
+
+    /* 메세지 전송 버튼 */
+    #msg_process {
+      position: absolute;
+      top: 65%;
+      right: 20px;
+      width: 4%;
+      height: 26px;
+    }
+
+    #chat_box .me {
+      color: #F6F6F6;
+      text-align: right;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    #chat_box .other {
+      color: yellow;
+      text-align: left;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+  </style>
+</head>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+<body>
+
+  <!-- <div id="video-grid"></div> -->
+  <div id="classRoom">
+    <video id="localVideo" autoplay></video>
+    <!-- <video id="remoteVideo" autoplay></video> -->
+    <video id="screenVideo" autoplay></video>
+    <button id="video-start">영상공유</button>
+    <button id="btn-start">화면공유</button>
+    <div id="chat_box"></div>
+    <input type="text" id="msg">
+    <button id="msg_process">전송</button>
+  </div>
+  <input type="text" id="myid" value="" readonly style="width: 400px;">
+
+  <input type="text" style="width: 400px;" id="adres-copy" value="">
+  <button onclick="adrescopy();">방초대주소복사</button>
+
+</body>
+
+<script>
+  // var link = document.location.href.toString();
+  // var linknum = link.lastIndexOf('/')
+  // link = link.substring(linknum +1)
+  // const ROOM_ID = link;
+  const Rtype = "<%= roomType %>"
+
+  const ROOM_ID = "<%= roomId %>"
+  var address = 'http://localhost:3000/' + ROOM_ID
+  $('#adres-copy').val(address)
+
+  function adrescopy() {
+    var inviteCode = document.getElementById('adres-copy');
+
+    inviteCode.select();
+    document.execCommand("copy");
+    alert("초대코드가 복사되었습니다");
+  }
+
+</script>
+<script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+<script src="/socket.io/socket.io.js" defer></script>
+<script src="script.js" defer></script>
+<script>
+
+</script>
+
+</html>
